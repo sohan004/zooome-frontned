@@ -28,25 +28,24 @@ const RightSideBar = ({
 
     useEffect(() => {
         socket.on('chat-message', (data) => {
-            console.log(data);
             setMessage(prev => [...prev, data]);
         });
         return () => socket.off('chat-message');
     }, [message, roomID]);
 
     const onSubmit = async (e, isFile) => {
-        await e?.preventDefault();
+        e?.preventDefault();
         const formData = new FormData();
 
-        let newMessage = await {
+        let newMessage = {
             id: me?.id,
             name: me?.name,
             room: roomID,
         }
 
         if (messageInput) {
-            newMessage['type'] = await 'message';
-            newMessage['message'] = await messageInput;
+            newMessage['type'] = 'message';
+            newMessage['message'] = messageInput;
         }
         if (isFile) {
             const file = e.target.files[0];
@@ -54,15 +53,15 @@ const RightSideBar = ({
             newMessage['fileName'] = file.name;
             newMessage['fileType'] = file.type;
             newMessage['fileSize'] = file.size;
-            formData.append('file', await file);
+            formData.append('file', file);
         }
-        formData.append('data',  JSON.stringify(newMessage));
-        fetch(`${BACKEND_URL}/chat-message`, {
+        setMessageInput('');
+        e.target.value = '';
+        formData.append('data', JSON.stringify(newMessage));
+        await fetch(`${BACKEND_URL}/chat-message`, {
             method: 'POST',
             body: formData
         })
-        setMessageInput('');
-        e.target.value = '';
     }
 
 
@@ -81,7 +80,8 @@ const RightSideBar = ({
 
             <ScrollToBottom
                 initialScrollBehavior='smooth'
-                className='overflow-y-auto scroll'
+                className='overflow-hidden overflow-y-auto right-scroll '
+                style={{ backgroundColor: 'blue', height: 'calc(100% - 100px)' }}
             >
                 {message.map((m, i) => {
                     if (m.type === 'message') {

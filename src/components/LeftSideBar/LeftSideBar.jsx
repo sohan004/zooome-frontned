@@ -21,7 +21,7 @@ const LeftSideBar = ({
                     onClick={() => setLeftSidebar(!leftSidebar)}
                     className='absolute md:hidden text-xl cursor-pointer  right-2 ' />
             </div>
-            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-7 mt-5">
+            <div className="flex-1 overflow-y-auto left-scroll p-4 flex flex-col gap-7 mt-5">
                 {Object.keys(participants).map((p, i) => <div className="flex items-end 2 justify-between" key={i}>
                     <div className='flex items-center gap-3'>
                         <p className="w-2 h-2 bg-green-500 rounded-full"></p>

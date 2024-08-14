@@ -39,7 +39,7 @@ const MiddlePart = ({
                 </div>
             </div>
 
-            <div className={`w-full  grid grid-cols-1 ${(Object.keys(participants).length > 1) && 'md:grid-cols-2'} gap-5 md:gap-7 overflow-y-auto`}>
+            <div className={`w-full  grid grid-cols-1 ${(Object.keys(participants).length > 1) && 'md:grid-cols-2'} gap-5 md:gap-7 overflow-y-auto middle-scroll`}>
                 {Object.keys(participants).map((p, i) =>
                     <Stream key={i} shiftFrontBackCamera={shiftFrontBackCamera} p={p} userCamera={camera} screenShare={screenShare} me={me} participants={participants} ></Stream>)}
             </div>

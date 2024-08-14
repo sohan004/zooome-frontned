@@ -30,18 +30,15 @@ const FileComponent = ({ m: {
                 setFileSizeByCalculate(`${(size / 1024 / 1024).toFixed(2)} GB`);
             }
         }
-    }, [file]);
+    }, [file, fileSize, roomID]);
 
     const onDownload = () => {
-        fetch(`${BACKEND_URL}/media?room=${roomID}&name=${file}`)
-            .then(res => res.blob())
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = fileName;
-                a.click();
-            });
+        const link = document.createElement('a');
+        link.href = `${BACKEND_URL}/download?room=${roomID}&name=${file}`;
+        link.setAttribute('download', file);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     return (
